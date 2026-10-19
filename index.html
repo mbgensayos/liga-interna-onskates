@@ -21,6 +21,7 @@
     --error: #FF6B6B;
   }
   * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
   html, body { margin: 0; }
   body {
     background: var(--pista);
@@ -30,15 +31,19 @@
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
   }
-  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 16px 64px; }
+  .wrap { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; padding: 32px 16px 64px; }
+
+  /* Logo de fondo (sello) */
+  .fondo { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+  .fondo img {
+    position: absolute; top: 50%; left: 50%;
+    width: max(1100px, 140vw); opacity: 0.05;
+    transform: translate(-50%, -50%) rotate(-12deg);
+  }
 
   /* Cabecera */
-  .marca {
-    display: flex; align-items: center; gap: 10px;
-    font-family: "Anton", sans-serif; font-size: 20px;
-    letter-spacing: -0.02em; text-transform: uppercase;
-  }
-  .tri { width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 12px solid var(--turquesa); }
+  .marca { display: block; width: 160px; height: auto; }
+  .tri { display: block; width: 0; height: 0; margin: 2px 0 0 4px; border-left: 11px solid transparent; border-right: 11px solid transparent; border-bottom: 19px solid var(--turquesa); }
   header { padding: 24px 0 32px; border-bottom: 1px solid var(--linea); margin-bottom: 32px; }
   .eyebrow {
     margin: 40px 0 8px; color: var(--turquesa);
@@ -136,6 +141,8 @@
     font-family: "Anton", sans-serif; font-weight: 400; text-transform: uppercase;
     letter-spacing: -0.02em; font-size: clamp(36px, 9vw, 64px); line-height: 1; margin: 0 0 16px;
   }
+  .cerrado h2 { font-family: "Anton", sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: -0.02em; font-size: clamp(36px, 9vw, 64px); line-height: 1; margin: 0 0 16px; }
+  .cerrado p { color: var(--texto-suave); margin: 0; }
   .gracias p { color: var(--texto-suave); margin: 0 0 24px; }
   .gracias button { width: auto; }
   .resumen { border-top: 1px solid var(--linea); margin: 0 0 24px; }
@@ -151,11 +158,12 @@
 </style>
 </head>
 <body>
+<div class="fondo" aria-hidden="true"><img src="sello.svg" alt=""></div>
 <div class="wrap">
-  <div class="marca"><span class="tri" aria-hidden="true"></span>OnSkates</div>
+  <img class="marca" src="logo.svg" alt="OnSkates">
 
   <header>
-    <p class="eyebrow">Temporada 2026 · Inscripción</p>
+    <p class="eyebrow">Temporada 2026 · Inscripción hasta el domingo 25/10</p>
     <h1>Liga Interna <span class="acento">OnSkates</span></h1>
     <p class="intro">Rellena este formulario para inscribirte en la liga interna. Puedes apuntarte a una o varias modalidades en la misma inscripción.</p>
     <ul class="chips" aria-label="Modalidades">
@@ -164,9 +172,10 @@
   </header>
 
   <ul class="info" aria-label="Información de la liga">
+    <li><span class="dato">25/10</span><span><strong>Fecha límite de inscripción</strong><span class="txt">Domingo 25 de octubre de 2026.</span></span></li>
     <li><span class="dato">5 €</span><span><strong>Inscripción</strong><span class="txt">Se cobrará a través de la app de SportMember.</span></span></li>
-    <li><span class="dato">🏅</span><span><strong>Entrega de medallas</strong><span class="txt">Habrá entrega de medallas al terminar la liga.</span></span></li>
-    <li><span class="dato">↗</span><span><strong>Rodaje antes de las ligas nacionales</strong><span class="txt">Es importante participar: es la mejor forma de llegar con experiencia de competición a las ligas nacionales.</span></span></li>
+    <li><span class="dato"><span class="tri" aria-hidden="true"></span></span><span><strong>Entrega de medallas</strong><span class="txt">Habrá entrega de medallas al terminar la liga.</span></span></li>
+    <li><span class="dato"><span class="tri" aria-hidden="true"></span></span><span><strong>Rodaje antes de las ligas nacionales</strong><span class="txt">Es importante participar: es la mejor forma de llegar con experiencia de competición a las ligas nacionales.</span></span></li>
   </ul>
 
   <form id="inscripcion" novalidate>
@@ -187,22 +196,14 @@
         <span class="ayuda">La que te corresponde por tu año de nacimiento.</span></label>
       <select id="categoriaEdad" name="categoriaEdad" required>
         <option value="" selected disabled>Elige tu categoría</option>
-        <optgroup label="Por edad">
-          <option>Mini (2022 y menores)</option>
-          <option>Prebenjamín (2020-2021)</option>
-          <option>Benjamín (2017-2019)</option>
-          <option>Alevín (2015-2016)</option>
-          <option>Infantil (2013-2014)</option>
-          <option>Juvenil (2011-2012)</option>
-          <option>Junior (2009-2010)</option>
-          <option>Sénior (2008 y mayores)</option>
-        </optgroup>
-        <optgroup label="Iniciación y Promoción">
-          <option>Iniciación (2013 y menores)</option>
-          <option>Iniciación (2012 y mayores)</option>
-          <option>Promoción (2013 y menores)</option>
-          <option>Promoción Aficionado (2012 y mayores)</option>
-        </optgroup>
+        <option>Mini (2022 y menores)</option>
+        <option>Prebenjamín (2020-2021)</option>
+        <option>Benjamín (2017-2019)</option>
+        <option>Alevín (2015-2016)</option>
+        <option>Infantil (2013-2014)</option>
+        <option>Juvenil (2011-2012)</option>
+        <option>Junior (2009-2010)</option>
+        <option>Sénior (2008 y mayores)</option>
       </select>
       <p class="error-msg">Elige tu categoría.</p>
     </div>
@@ -259,6 +260,11 @@
     <button type="submit" id="enviar">Enviar inscripción</button>
   </form>
 
+  <section class="cerrado" id="cerrado" hidden>
+    <h2>Inscripciones <span style="color:var(--turquesa)">cerradas</span></h2>
+    <p>El plazo de inscripción terminó el domingo 25/10/2026.</p>
+  </section>
+
   <section class="gracias" id="gracias" aria-live="polite">
     <h2>¡Inscripción <span style="color:var(--turquesa)">recibida!</span></h2>
     <p>Nos vemos en la pista. Este es el resumen de lo que has enviado:</p>
@@ -281,7 +287,14 @@
   const gracias = document.getElementById("gracias");
   const resumen = document.getElementById("resumen");
 
+  // Fin del plazo: domingo 25/10/2026 a las 23:59 (hora de Madrid).
+  const CIERRE = new Date("2026-10-26T00:00:00+01:00");
+
   if (!ENDPOINT) document.getElementById("aviso-config").hidden = false;
+  if (new Date() >= CIERRE) {
+    form.hidden = true;
+    document.getElementById("cerrado").hidden = false;
+  }
   document.getElementById("fechaNacimiento").max = new Date().toISOString().slice(0, 10);
 
   function leerDatos() {
@@ -363,6 +376,11 @@
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     estado.className = "estado";
+    if (new Date() >= CIERRE) {
+      estado.textContent = "El plazo de inscripción ha terminado.";
+      estado.className = "estado error";
+      return;
+    }
     const d = leerDatos();
     if (!validar(d)) return;
 

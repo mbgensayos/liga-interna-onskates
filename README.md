@@ -4,12 +4,14 @@ Formulario web de inscripción para la liga interna de OnSkates, con todas las m
 en una sola inscripción: **Battle, Derrapes, Speed y Salto**.
 
 Inscripción: 5 €, que se cobran por la app de SportMember. Habrá entrega de medallas.
+Fecha límite: domingo 25/10/2026. A partir del 26/10 la página muestra "Inscripciones cerradas"
+(se cambia en `CIERRE`, dentro de `index.html`).
 
 Campos:
 
 1. Nombre y apellidos del patinador/a
 2. Fecha de nacimiento
-3. Categoría (desplegable: Mini, Prebenjamín, Benjamín, Alevín, Infantil, Juvenil, Junior, Sénior, Iniciación y Promoción)
+3. Categoría (desplegable: Mini, Prebenjamín, Benjamín, Alevín, Infantil, Juvenil, Junior y Sénior)
 4. Federado/a (Sí / No)
 5. ¿Has participado en alguna liga en la temporada 2025? (Ninguna / Autonómica / 3ª División / 1ª División)
 6. Modalidad a la que te presentas (varias a la vez)
