@@ -103,3 +103,13 @@ function tablaHtml_(pares) {
 function escapar_(texto) {
   return String(texto).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 }
+
+/**
+ * Ejecútala una vez a mano desde el editor (botón "Ejecutar") para conceder los
+ * permisos de hoja y correo. Te llegará un correo de prueba a info@.
+ */
+function probar() {
+  obtenerHoja_();
+  MailApp.sendEmail(CORREO_ONSKATES, "Prueba · Liga Interna OnSkates",
+    "Si te llega este correo, el script tiene permiso para guardar en la hoja y enviar correos.");
+}
