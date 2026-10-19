@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inscripción Liga Interna OnSkates 2026</title>
+<meta name="description" content="Formulario de inscripción a la Liga Interna OnSkates 2026: Classic, Battle, Derrapes, Speed y Salto.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pista: #0B0C0E;
+    --turquesa: #00B0E0;
+    --azul: #004B67;
+    --blanco: #FFFFFF;
+    --gris-claro: #E5E5E5;
+    --gris-oscuro: #333333;
+    --linea: rgba(255, 255, 255, 0.14);
+    --texto-suave: rgba(255, 255, 255, 0.68);
+    --error: #FF6B6B;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--pista);
+    color: var(--blanco);
+    font-family: "Montserrat", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 16px 64px; }
+
+  /* Cabecera */
+  .marca {
+    display: flex; align-items: center; gap: 10px;
+    font-family: "Anton", sans-serif; font-size: 20px;
+    letter-spacing: -0.02em; text-transform: uppercase;
+  }
+  .tri { width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 12px solid var(--turquesa); }
+  header { padding: 24px 0 32px; border-bottom: 1px solid var(--linea); margin-bottom: 32px; }
+  .eyebrow {
+    margin: 40px 0 8px; color: var(--turquesa);
+    font-weight: 600; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  h1 {
+    font-family: "Anton", sans-serif; font-weight: 400; text-transform: uppercase;
+    letter-spacing: -0.02em; line-height: 0.95; margin: 0;
+    font-size: clamp(44px, 11vw, 88px);
+  }
+  h1 .acento { color: var(--turquesa); }
+  .intro { color: var(--texto-suave); margin: 20px 0 0; max-width: 56ch; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; padding: 0; list-style: none; }
+  .chips li {
+    font-family: "Anton", sans-serif; text-transform: uppercase; letter-spacing: -0.01em;
+    font-size: 15px; padding: 6px 12px; border: 1px solid var(--linea); border-radius: 999px;
+  }
+
+  /* Formulario */
+  form { display: flex; flex-direction: column; gap: 28px; }
+  fieldset, .campo { border: 0; margin: 0; padding: 0; min-width: 0; }
+  .num { font-family: "Anton", sans-serif; font-variant-numeric: tabular-nums; color: var(--turquesa); margin-right: 8px; }
+  legend, label.titulo {
+    display: block; font-weight: 600; font-size: 17px; margin-bottom: 12px; padding: 0;
+  }
+  .req { color: var(--turquesa); }
+  .ayuda { display: block; font-weight: 400; font-size: 14px; color: var(--texto-suave); margin-top: 2px; }
+
+  input[type="text"], input[type="date"] {
+    width: 100%; font: inherit; color: var(--blanco);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--linea); border-radius: 10px;
+    padding: 14px 16px; min-height: 52px;
+    color-scheme: dark;
+  }
+  input[type="text"]:focus, input[type="date"]:focus { outline: none; border-color: var(--turquesa); box-shadow: 0 0 0 3px rgba(0, 176, 224, 0.25); }
+
+  .opciones { display: grid; gap: 8px; }
+  .opciones.dos { grid-template-columns: 1fr 1fr; }
+  .opcion { position: relative; }
+  .opcion input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .opcion > span {
+    display: flex; align-items: center; gap: 12px;
+    min-height: 52px; padding: 12px 16px;
+    border: 1px solid var(--linea); border-radius: 10px;
+    background: rgba(255, 255, 255, 0.02);
+    transition: border-color .15s, background .15s;
+  }
+  .opcion > span::before {
+    content: ""; flex: none; width: 18px; height: 18px;
+    border: 2px solid var(--texto-suave); border-radius: 50%;
+  }
+  .opcion input[type="checkbox"] + span::before { border-radius: 4px; }
+  .opcion input:checked + span { border-color: var(--turquesa); background: rgba(0, 176, 224, 0.10); }
+  .opcion input:checked + span::before { border-color: var(--turquesa); background: var(--turquesa); box-shadow: inset 0 0 0 3px var(--pista); }
+  .opcion input:focus-visible + span { box-shadow: 0 0 0 3px rgba(0, 176, 224, 0.35); }
+  .opcion small { display: block; color: var(--texto-suave); font-size: 13px; }
+
+  .modalidades { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  .modalidades .opcion > span {
+    font-family: "Anton", sans-serif; text-transform: uppercase; letter-spacing: -0.01em; font-size: 20px;
+    min-height: 64px;
+  }
+
+  .error-msg { display: none; color: var(--error); font-size: 14px; margin-top: 8px; }
+  .invalido .error-msg { display: block; }
+  .invalido input[type="text"], .invalido input[type="date"], .invalido .opcion > span { border-color: var(--error); }
+
+  button {
+    font-family: "Anton", sans-serif; text-transform: uppercase; letter-spacing: -0.01em;
+    font-size: 22px; color: var(--pista); background: var(--turquesa);
+    border: 0; border-radius: 10px; padding: 16px 24px; min-height: 60px;
+    cursor: pointer; width: 100%;
+  }
+  button:hover { filter: brightness(1.08); }
+  button:disabled { opacity: .6; cursor: progress; }
+
+  .aviso { font-size: 14px; color: var(--texto-suave); padding: 14px 16px; border: 1px dashed var(--linea); border-radius: 10px; }
+  .estado { display: none; font-size: 15px; padding: 14px 16px; border-radius: 10px; }
+  .estado.error { display: block; border: 1px solid var(--error); color: var(--error); }
+
+  /* Confirmación */
+  .gracias { display: none; text-align: left; padding: 24px 0; }
+  .gracias h2 {
+    font-family: "Anton", sans-serif; font-weight: 400; text-transform: uppercase;
+    letter-spacing: -0.02em; font-size: clamp(36px, 9vw, 64px); line-height: 1; margin: 0 0 16px;
+  }
+  .gracias p { color: var(--texto-suave); margin: 0 0 24px; }
+  .gracias button { width: auto; }
+  .resumen { border-top: 1px solid var(--linea); margin: 0 0 24px; }
+  .resumen div { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--linea); }
+  .resumen dt { color: var(--texto-suave); font-size: 14px; }
+  .resumen dd { margin: 0; font-weight: 600; text-align: right; }
+
+  footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--linea); color: var(--texto-suave); font-size: 13px; }
+
+  @media (max-width: 420px) {
+    .opciones.dos { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="marca"><span class="tri" aria-hidden="true"></span>OnSkates</div>
+
+  <header>
+    <p class="eyebrow">Temporada 2026 · Inscripción</p>
+    <h1>Liga Interna <span class="acento">OnSkates</span></h1>
+    <p class="intro">Rellena este formulario para inscribirte en la liga interna. Puedes apuntarte a una o varias modalidades en la misma inscripción.</p>
+    <ul class="chips" aria-label="Modalidades">
+      <li>Classic</li><li>Battle</li><li>Derrapes</li><li>Speed</li><li>Salto</li>
+    </ul>
+  </header>
+
+  <form id="inscripcion" novalidate>
+    <div class="campo" data-campo="nombre">
+      <label class="titulo" for="nombre"><span class="num">01</span>Nombre y apellidos del patinador/a <span class="req">*</span></label>
+      <input type="text" id="nombre" name="nombre" autocomplete="name" required>
+      <p class="error-msg">Escribe el nombre y apellidos.</p>
+    </div>
+
+    <div class="campo" data-campo="fechaNacimiento">
+      <label class="titulo" for="fechaNacimiento"><span class="num">02</span>Fecha de nacimiento <span class="req">*</span></label>
+      <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+      <p class="error-msg">Indica una fecha de nacimiento válida.</p>
+    </div>
+
+    <fieldset data-campo="federado">
+      <legend><span class="num">03</span>Federado/a <span class="req">*</span></legend>
+      <div class="opciones dos">
+        <label class="opcion"><input type="radio" name="federado" value="Sí" required><span>Sí</span></label>
+        <label class="opcion"><input type="radio" name="federado" value="No"><span>No</span></label>
+      </div>
+      <p class="error-msg">Elige una opción.</p>
+    </fieldset>
+
+    <fieldset data-campo="ligaAnterior">
+      <legend><span class="num">04</span>¿Has participado en alguna liga en la temporada 2025? <span class="req">*</span></legend>
+      <div class="opciones">
+        <label class="opcion"><input type="radio" name="ligaAnterior" value="No he participado en ninguna" required><span>No he participado en ninguna</span></label>
+        <label class="opcion"><input type="radio" name="ligaAnterior" value="Liga Autonómica"><span>Liga Autonómica</span></label>
+        <label class="opcion"><input type="radio" name="ligaAnterior" value="Liga 3ª División"><span>Liga 3ª División</span></label>
+        <label class="opcion"><input type="radio" name="ligaAnterior" value="Liga 1ª División"><span>Liga 1ª División</span></label>
+      </div>
+      <p class="error-msg">Elige una opción.</p>
+    </fieldset>
+
+    <fieldset data-campo="modalidades">
+      <legend><span class="num">05</span>Modalidad a la que te presentas <span class="req">*</span>
+        <span class="ayuda">Marca todas las que quieras.</span></legend>
+      <div class="opciones modalidades">
+        <label class="opcion"><input type="checkbox" name="modalidades" value="Classic"><span>Classic</span></label>
+        <label class="opcion"><input type="checkbox" name="modalidades" value="Battle"><span>Battle</span></label>
+        <label class="opcion"><input type="checkbox" name="modalidades" value="Derrapes"><span>Derrapes</span></label>
+        <label class="opcion"><input type="checkbox" name="modalidades" value="Speed"><span>Speed</span></label>
+        <label class="opcion"><input type="checkbox" name="modalidades" value="Salto"><span>Salto</span></label>
+      </div>
+      <p class="error-msg">Elige al menos una modalidad.</p>
+    </fieldset>
+
+    <fieldset data-campo="categoria">
+      <legend><span class="num">06</span>¿Quieres presentarte a la categoría profesional o amateur? <span class="req">*</span></legend>
+      <div class="opciones dos">
+        <label class="opcion"><input type="radio" name="categoria" value="Profesional" required><span><span>Profesional<small>Máxima categoría</small></span></span></label>
+        <label class="opcion"><input type="radio" name="categoria" value="Amateur"><span><span>Amateur<small>Iniciación</small></span></span></label>
+      </div>
+      <p class="error-msg">Elige una categoría.</p>
+    </fieldset>
+
+    <p class="aviso" id="aviso-config" hidden>Modo prueba: todavía no hay hoja de cálculo conectada, así que las inscripciones no se guardan. Consulta el README para conectarla.</p>
+    <p class="estado" id="estado" role="alert"></p>
+    <button type="submit" id="enviar">Enviar inscripción</button>
+  </form>
+
+  <section class="gracias" id="gracias" aria-live="polite">
+    <h2>¡Inscripción <span style="color:var(--turquesa)">recibida!</span></h2>
+    <p>Nos vemos en la pista. Este es el resumen de lo que has enviado:</p>
+    <dl class="resumen" id="resumen"></dl>
+    <button type="button" id="otra">Inscribir a otro patinador/a</button>
+  </section>
+
+  <footer>OnSkates · Liga Interna 2026</footer>
+</div>
+
+<script>
+  // URL de la aplicación web de Google Apps Script (ver README / apps-script/Code.gs).
+  // Mientras esté vacía, el formulario funciona en modo prueba y no guarda nada.
+  const ENDPOINT = "";
+
+  const form = document.getElementById("inscripcion");
+  const estado = document.getElementById("estado");
+  const enviar = document.getElementById("enviar");
+  const gracias = document.getElementById("gracias");
+  const resumen = document.getElementById("resumen");
+
+  if (!ENDPOINT) document.getElementById("aviso-config").hidden = false;
+  document.getElementById("fechaNacimiento").max = new Date().toISOString().slice(0, 10);
+
+  function leerDatos() {
+    const fd = new FormData(form);
+    return {
+      nombre: (fd.get("nombre") || "").trim(),
+      fechaNacimiento: fd.get("fechaNacimiento") || "",
+      federado: fd.get("federado") || "",
+      ligaAnterior: fd.get("ligaAnterior") || "",
+      modalidades: fd.getAll("modalidades"),
+      categoria: fd.get("categoria") || "",
+    };
+  }
+
+  function validar(d) {
+    const hoy = new Date().toISOString().slice(0, 10);
+    const errores = {
+      nombre: d.nombre.length < 3,
+      fechaNacimiento: !d.fechaNacimiento || d.fechaNacimiento > hoy || d.fechaNacimiento < "1900-01-01",
+      federado: !d.federado,
+      ligaAnterior: !d.ligaAnterior,
+      modalidades: d.modalidades.length === 0,
+      categoria: !d.categoria,
+    };
+    let primero = null;
+    for (const [campo, mal] of Object.entries(errores)) {
+      const el = form.querySelector(`[data-campo="${campo}"]`);
+      el.classList.toggle("invalido", mal);
+      if (mal && !primero) primero = el;
+    }
+    if (primero) {
+      primero.scrollIntoView({ behavior: "smooth", block: "center" });
+      const input = primero.querySelector("input");
+      if (input) input.focus({ preventScroll: true });
+    }
+    return !primero;
+  }
+
+  form.addEventListener("change", (e) => {
+    const campo = e.target.closest("[data-campo]");
+    if (campo) campo.classList.remove("invalido");
+  });
+  form.addEventListener("input", (e) => {
+    const campo = e.target.closest("[data-campo]");
+    if (campo) campo.classList.remove("invalido");
+  });
+
+  function fechaES(iso) {
+    const [a, m, d] = iso.split("-");
+    return `${d}/${m}/${a}`;
+  }
+
+  function mostrarGracias(d) {
+    const filas = [
+      ["Patinador/a", d.nombre],
+      ["Nacimiento", fechaES(d.fechaNacimiento)],
+      ["Federado/a", d.federado],
+      ["Liga 2025", d.ligaAnterior],
+      ["Modalidades", d.modalidades.join(", ")],
+      ["Categoría", d.categoria],
+    ];
+    resumen.replaceChildren(...filas.map(([k, v]) => {
+      const div = document.createElement("div");
+      const dt = document.createElement("dt"); dt.textContent = k;
+      const dd = document.createElement("dd"); dd.textContent = v;
+      div.append(dt, dd);
+      return div;
+    }));
+    form.style.display = "none";
+    gracias.style.display = "block";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    estado.className = "estado";
+    const d = leerDatos();
+    if (!validar(d)) return;
+
+    enviar.disabled = true;
+    enviar.textContent = "Enviando…";
+    try {
+      if (ENDPOINT) {
+        const body = new URLSearchParams({
+          nombre: d.nombre,
+          fechaNacimiento: fechaES(d.fechaNacimiento),
+          federado: d.federado,
+          ligaAnterior: d.ligaAnterior,
+          modalidades: d.modalidades.join(", "),
+          categoria: d.categoria,
+        });
+        // Apps Script no devuelve cabeceras CORS: se envía en modo no-cors.
+        await fetch(ENDPOINT, { method: "POST", mode: "no-cors", body });
+      }
+      mostrarGracias(d);
+    } catch (err) {
+      estado.textContent = "No se ha podido enviar la inscripción. Revisa tu conexión e inténtalo de nuevo.";
+      estado.className = "estado error";
+    } finally {
+      enviar.disabled = false;
+      enviar.textContent = "Enviar inscripción";
+    }
+  });
+
+  document.getElementById("otra").addEventListener("click", () => {
+    form.reset();
+    gracias.style.display = "none";
+    form.style.display = "";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+</script>
+</body>
+</html>
