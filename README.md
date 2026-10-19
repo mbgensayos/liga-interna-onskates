@@ -1,16 +1,20 @@
 # Liga Interna OnSkates 2026 · Inscripción
 
 Formulario web de inscripción para la liga interna de OnSkates, con todas las modalidades
-en una sola inscripción: **Classic, Battle, Derrapes, Speed y Salto**.
+en una sola inscripción: **Battle, Derrapes, Speed y Salto**.
 
-Recoge los mismos campos que los formularios de Google de la temporada 2026:
+Inscripción: 5 €, que se cobran por la app de SportMember. Habrá entrega de medallas.
+
+Campos:
 
 1. Nombre y apellidos del patinador/a
 2. Fecha de nacimiento
-3. Federado/a (Sí / No)
-4. ¿Has participado en alguna liga en la temporada 2025? (Ninguna / Autonómica / 3ª División / 1ª División)
-5. Modalidad a la que te presentas (varias a la vez)
-6. Categoría: Profesional (máxima categoría) o Amateur (iniciación)
+3. Categoría (desplegable: Mini, Prebenjamín, Benjamín, Alevín, Infantil, Juvenil, Junior, Sénior, Iniciación y Promoción)
+4. Federado/a (Sí / No)
+5. ¿Has participado en alguna liga en la temporada 2025? (Ninguna / Autonómica / 3ª División / 1ª División)
+6. Modalidad a la que te presentas (varias a la vez)
+7. Profesional (máxima categoría) o Amateur (iniciación)
+8. Observaciones (opcional)
 
 ## Publicar la página (GitHub Pages)
 
@@ -33,6 +37,7 @@ La página es estática, así que las respuestas se envían a una hoja de cálcu
 5. En `index.html`, pega esa URL en `const ENDPOINT = "";` y sube el cambio.
 
 Cada inscripción aparece como una fila en la pestaña **Inscripciones**, con una columna
-"Sí" por modalidad para filtrar la lista de cada una.
+"Sí" por modalidad para filtrar la lista de cada una. Las columnas las crea el propio
+formulario: si se añade una pregunta nueva, su columna aparece sola sin tocar el script.
 
 Mientras `ENDPOINT` esté vacío, la página muestra un aviso de "modo prueba" y no guarda nada.

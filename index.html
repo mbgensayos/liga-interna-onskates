@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Inscripción Liga Interna OnSkates 2026</title>
-<meta name="description" content="Formulario de inscripción a la Liga Interna OnSkates 2026: Classic, Battle, Derrapes, Speed y Salto.">
+<meta name="description" content="Formulario de inscripción a la Liga Interna OnSkates 2026: Battle, Derrapes, Speed y Salto.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -57,6 +57,13 @@
     font-size: 15px; padding: 6px 12px; border: 1px solid var(--linea); border-radius: 999px;
   }
 
+  /* Información */
+  .info { list-style: none; padding: 0; margin: 0 0 40px; display: grid; gap: 8px; }
+  .info li { display: flex; gap: 16px; align-items: flex-start; padding: 16px; border: 1px solid var(--linea); border-radius: 10px; background: rgba(255, 255, 255, 0.02); }
+  .info .dato { flex: none; min-width: 64px; font-family: "Anton", sans-serif; font-variant-numeric: tabular-nums; font-size: 30px; line-height: 1; letter-spacing: -0.02em; color: var(--turquesa); }
+  .info strong { display: block; font-weight: 600; }
+  .info span.txt { color: var(--texto-suave); font-size: 14px; }
+
   /* Formulario */
   form { display: flex; flex-direction: column; gap: 28px; }
   fieldset, .campo { border: 0; margin: 0; padding: 0; min-width: 0; }
@@ -67,14 +74,17 @@
   .req { color: var(--turquesa); }
   .ayuda { display: block; font-weight: 400; font-size: 14px; color: var(--texto-suave); margin-top: 2px; }
 
-  input[type="text"], input[type="date"] {
+  input[type="text"], input[type="date"], select, textarea {
     width: 100%; font: inherit; color: var(--blanco);
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--linea); border-radius: 10px;
     padding: 14px 16px; min-height: 52px;
     color-scheme: dark;
   }
-  input[type="text"]:focus, input[type="date"]:focus { outline: none; border-color: var(--turquesa); box-shadow: 0 0 0 3px rgba(0, 176, 224, 0.25); }
+  select { appearance: none; padding-right: 44px; background-image: linear-gradient(45deg, transparent 50%, var(--turquesa) 50%), linear-gradient(135deg, var(--turquesa) 50%, transparent 50%); background-position: right 22px center, right 16px center; background-size: 6px 6px; background-repeat: no-repeat; }
+  select option, select optgroup { background: var(--pista); color: var(--blanco); }
+  textarea { min-height: 120px; resize: vertical; }
+  input[type="text"]:focus, input[type="date"]:focus, select:focus, textarea:focus { outline: none; border-color: var(--turquesa); box-shadow: 0 0 0 3px rgba(0, 176, 224, 0.25); }
 
   .opciones { display: grid; gap: 8px; }
   .opciones.dos { grid-template-columns: 1fr 1fr; }
@@ -105,7 +115,7 @@
 
   .error-msg { display: none; color: var(--error); font-size: 14px; margin-top: 8px; }
   .invalido .error-msg { display: block; }
-  .invalido input[type="text"], .invalido input[type="date"], .invalido .opcion > span { border-color: var(--error); }
+  .invalido input[type="text"], .invalido input[type="date"], .invalido select, .invalido .opcion > span { border-color: var(--error); }
 
   button {
     font-family: "Anton", sans-serif; text-transform: uppercase; letter-spacing: -0.01em;
@@ -149,9 +159,15 @@
     <h1>Liga Interna <span class="acento">OnSkates</span></h1>
     <p class="intro">Rellena este formulario para inscribirte en la liga interna. Puedes apuntarte a una o varias modalidades en la misma inscripción.</p>
     <ul class="chips" aria-label="Modalidades">
-      <li>Classic</li><li>Battle</li><li>Derrapes</li><li>Speed</li><li>Salto</li>
+      <li>Battle</li><li>Derrapes</li><li>Speed</li><li>Salto</li>
     </ul>
   </header>
+
+  <ul class="info" aria-label="Información de la liga">
+    <li><span class="dato">5 €</span><span><strong>Inscripción</strong><span class="txt">Se cobrará a través de la app de SportMember.</span></span></li>
+    <li><span class="dato">🏅</span><span><strong>Entrega de medallas</strong><span class="txt">Habrá entrega de medallas al terminar la liga.</span></span></li>
+    <li><span class="dato">↗</span><span><strong>Rodaje antes de las ligas nacionales</strong><span class="txt">Es importante participar: es la mejor forma de llegar con experiencia de competición a las ligas nacionales.</span></span></li>
+  </ul>
 
   <form id="inscripcion" novalidate>
     <div class="campo" data-campo="nombre">
@@ -166,8 +182,33 @@
       <p class="error-msg">Indica una fecha de nacimiento válida.</p>
     </div>
 
+    <div class="campo" data-campo="categoriaEdad">
+      <label class="titulo" for="categoriaEdad"><span class="num">03</span>Categoría <span class="req">*</span>
+        <span class="ayuda">La que te corresponde por tu año de nacimiento.</span></label>
+      <select id="categoriaEdad" name="categoriaEdad" required>
+        <option value="" selected disabled>Elige tu categoría</option>
+        <optgroup label="Por edad">
+          <option>Mini (2022 y menores)</option>
+          <option>Prebenjamín (2020-2021)</option>
+          <option>Benjamín (2017-2019)</option>
+          <option>Alevín (2015-2016)</option>
+          <option>Infantil (2013-2014)</option>
+          <option>Juvenil (2011-2012)</option>
+          <option>Junior (2009-2010)</option>
+          <option>Sénior (2008 y mayores)</option>
+        </optgroup>
+        <optgroup label="Iniciación y Promoción">
+          <option>Iniciación (2013 y menores)</option>
+          <option>Iniciación (2012 y mayores)</option>
+          <option>Promoción (2013 y menores)</option>
+          <option>Promoción Aficionado (2012 y mayores)</option>
+        </optgroup>
+      </select>
+      <p class="error-msg">Elige tu categoría.</p>
+    </div>
+
     <fieldset data-campo="federado">
-      <legend><span class="num">03</span>Federado/a <span class="req">*</span></legend>
+      <legend><span class="num">04</span>Federado/a <span class="req">*</span></legend>
       <div class="opciones dos">
         <label class="opcion"><input type="radio" name="federado" value="Sí" required><span>Sí</span></label>
         <label class="opcion"><input type="radio" name="federado" value="No"><span>No</span></label>
@@ -176,7 +217,7 @@
     </fieldset>
 
     <fieldset data-campo="ligaAnterior">
-      <legend><span class="num">04</span>¿Has participado en alguna liga en la temporada 2025? <span class="req">*</span></legend>
+      <legend><span class="num">05</span>¿Has participado en alguna liga en la temporada 2025? <span class="req">*</span></legend>
       <div class="opciones">
         <label class="opcion"><input type="radio" name="ligaAnterior" value="No he participado en ninguna" required><span>No he participado en ninguna</span></label>
         <label class="opcion"><input type="radio" name="ligaAnterior" value="Liga Autonómica"><span>Liga Autonómica</span></label>
@@ -187,10 +228,9 @@
     </fieldset>
 
     <fieldset data-campo="modalidades">
-      <legend><span class="num">05</span>Modalidad a la que te presentas <span class="req">*</span>
+      <legend><span class="num">06</span>Modalidad a la que te presentas <span class="req">*</span>
         <span class="ayuda">Marca todas las que quieras.</span></legend>
       <div class="opciones modalidades">
-        <label class="opcion"><input type="checkbox" name="modalidades" value="Classic"><span>Classic</span></label>
         <label class="opcion"><input type="checkbox" name="modalidades" value="Battle"><span>Battle</span></label>
         <label class="opcion"><input type="checkbox" name="modalidades" value="Derrapes"><span>Derrapes</span></label>
         <label class="opcion"><input type="checkbox" name="modalidades" value="Speed"><span>Speed</span></label>
@@ -200,13 +240,19 @@
     </fieldset>
 
     <fieldset data-campo="categoria">
-      <legend><span class="num">06</span>¿Quieres presentarte a la categoría profesional o amateur? <span class="req">*</span></legend>
+      <legend><span class="num">07</span>¿Quieres presentarte a la categoría profesional o amateur? <span class="req">*</span></legend>
       <div class="opciones dos">
         <label class="opcion"><input type="radio" name="categoria" value="Profesional" required><span><span>Profesional<small>Máxima categoría</small></span></span></label>
         <label class="opcion"><input type="radio" name="categoria" value="Amateur"><span><span>Amateur<small>Iniciación</small></span></span></label>
       </div>
       <p class="error-msg">Elige una categoría.</p>
     </fieldset>
+
+    <div class="campo">
+      <label class="titulo" for="observaciones"><span class="num">08</span>Observaciones
+        <span class="ayuda">Opcional. Cualquier cosa que debamos saber.</span></label>
+      <textarea id="observaciones" name="observaciones" maxlength="1000"></textarea>
+    </div>
 
     <p class="aviso" id="aviso-config" hidden>Modo prueba: todavía no hay hoja de cálculo conectada, así que las inscripciones no se guardan. Consulta el README para conectarla.</p>
     <p class="estado" id="estado" role="alert"></p>
@@ -226,6 +272,7 @@
 <script>
   // URL de la aplicación web de Google Apps Script (ver README / apps-script/Code.gs).
   // Mientras esté vacía, el formulario funciona en modo prueba y no guarda nada.
+  const MODALIDADES = ["Battle", "Derrapes", "Speed", "Salto"];
   const ENDPOINT = "https://script.google.com/macros/s/AKfycbzUsPgPa6MBvwXD7XfdK5sg951fcskufPkPNGyFW7lQlKZ0uByavaHGM0_mQ0Ol788w/exec";
 
   const form = document.getElementById("inscripcion");
@@ -242,10 +289,12 @@
     return {
       nombre: (fd.get("nombre") || "").trim(),
       fechaNacimiento: fd.get("fechaNacimiento") || "",
+      categoriaEdad: fd.get("categoriaEdad") || "",
       federado: fd.get("federado") || "",
       ligaAnterior: fd.get("ligaAnterior") || "",
       modalidades: fd.getAll("modalidades"),
       categoria: fd.get("categoria") || "",
+      observaciones: (fd.get("observaciones") || "").trim(),
     };
   }
 
@@ -254,6 +303,7 @@
     const errores = {
       nombre: d.nombre.length < 3,
       fechaNacimiento: !d.fechaNacimiento || d.fechaNacimiento > hoy || d.fechaNacimiento < "1900-01-01",
+      categoriaEdad: !d.categoriaEdad,
       federado: !d.federado,
       ligaAnterior: !d.ligaAnterior,
       modalidades: d.modalidades.length === 0,
@@ -267,7 +317,7 @@
     }
     if (primero) {
       primero.scrollIntoView({ behavior: "smooth", block: "center" });
-      const input = primero.querySelector("input");
+      const input = primero.querySelector("input, select");
       if (input) input.focus({ preventScroll: true });
     }
     return !primero;
@@ -291,11 +341,13 @@
     const filas = [
       ["Patinador/a", d.nombre],
       ["Nacimiento", fechaES(d.fechaNacimiento)],
+      ["Categoría", d.categoriaEdad],
       ["Federado/a", d.federado],
       ["Liga 2025", d.ligaAnterior],
       ["Modalidades", d.modalidades.join(", ")],
-      ["Categoría", d.categoria],
+      ["Profesional / Amateur", d.categoria],
     ];
+    if (d.observaciones) filas.push(["Observaciones", d.observaciones]);
     resumen.replaceChildren(...filas.map(([k, v]) => {
       const div = document.createElement("div");
       const dt = document.createElement("dt"); dt.textContent = k;
@@ -318,14 +370,19 @@
     enviar.textContent = "Enviando…";
     try {
       if (ENDPOINT) {
-        const body = new URLSearchParams({
-          nombre: d.nombre,
-          fechaNacimiento: fechaES(d.fechaNacimiento),
-          federado: d.federado,
-          ligaAnterior: d.ligaAnterior,
-          modalidades: d.modalidades.join(", "),
-          categoria: d.categoria,
-        });
+        // Cada par [columna, valor] acaba en la hoja; las columnas nuevas se crean solas.
+        const fila = [
+          ["Nombre y apellidos del patinador/a", d.nombre],
+          ["Fecha de nacimiento", fechaES(d.fechaNacimiento)],
+          ["Categoría", d.categoriaEdad],
+          ["Federado:", d.federado],
+          ["¿Has participado en alguna liga en la temporada 2025?", d.ligaAnterior],
+          ["Modalidad a la que te presentas:", d.modalidades.join(", ")],
+          ["¿Quieres presentarte a la categoria profesional (maxima categoría) o amateur (iniciación)?", d.categoria],
+          ...MODALIDADES.map((m) => [m, d.modalidades.includes(m) ? "Sí" : ""]),
+          ["Observaciones", d.observaciones],
+        ];
+        const body = new URLSearchParams({ fila: JSON.stringify(fila) });
         // Apps Script no devuelve cabeceras CORS: se envía en modo no-cors.
         await fetch(ENDPOINT, { method: "POST", mode: "no-cors", body });
       }
