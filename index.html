@@ -293,7 +293,7 @@
   </section>
 
   <section class="gracias" id="gracias" aria-live="polite">
-    <h2>¡Inscripción <span style="color:var(--turquesa)">recibida!</span></h2>
+    <h2>¡Estás inscrito, <span style="color:var(--turquesa)">lo vas a petar!</span> 💪</h2>
     <p>Te hemos enviado un correo de confirmación (revisa también la carpeta de spam). Este es el resumen de lo que has enviado:</p>
     <dl class="resumen" id="resumen"></dl>
     <button type="button" id="otra">Inscribir a otro patinador/a</button>
@@ -429,7 +429,7 @@
     }));
     form.style.display = "none";
     gracias.style.display = "block";
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    gracias.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   form.addEventListener("submit", async (e) => {
