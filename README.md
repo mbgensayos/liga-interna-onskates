@@ -12,13 +12,18 @@ Fecha límite: domingo 25/10/2026. A partir del 26/10 la página muestra "Inscri
 Campos:
 
 1. Nombre y apellidos del patinador/a
-2. Fecha de nacimiento
-3. Categoría (desplegable: Mini, Prebenjamín, Benjamín, Alevín, Infantil, Juvenil, Junior y Sénior)
-4. Federado/a (Sí / No)
-5. ¿Has participado en alguna liga en la temporada 2025? (Ninguna / Autonómica / 3ª División / 1ª División)
-6. Modalidad a la que te presentas (varias a la vez)
-7. Profesional (máxima categoría) o Amateur (iniciación)
-8. Observaciones (opcional)
+2. Correo electrónico (recibe la confirmación)
+3. Fecha de nacimiento
+4. Categoría: se asigna sola por el año de nacimiento (Mini, Prebenjamín, Benjamín, Alevín,
+   Infantil, Juvenil, Junior, Sénior; tabla `CATEGORIAS` en `index.html`)
+5. Federado/a (Sí / No)
+6. ¿Has participado en alguna liga en la temporada 2025? (Ninguna / Autonómica / 3ª / 2ª / 1ª División)
+7. Modalidad a la que te presentas (varias a la vez)
+8. Profesional (máxima categoría) o Amateur (iniciación)
+9. Observaciones (opcional)
+
+Con cada inscripción, el script envía un correo de confirmación al patinador/a y un aviso a
+info@escuelaonskates.com.
 
 ## Publicar la página (GitHub Pages)
 

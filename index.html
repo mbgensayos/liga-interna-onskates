@@ -89,13 +89,13 @@
   form { display: flex; flex-direction: column; gap: 28px; }
   fieldset, .campo { border: 0; margin: 0; padding: 0; min-width: 0; }
   .num { font-family: "Anton", sans-serif; font-variant-numeric: tabular-nums; color: var(--turquesa); margin-right: 8px; }
-  legend, label.titulo {
+  legend, label.titulo, p.titulo {
     display: block; font-weight: 600; font-size: 17px; margin-bottom: 12px; padding: 0;
   }
   .req { color: var(--turquesa); }
   .ayuda { display: block; font-weight: 400; font-size: 14px; color: var(--texto-suave); margin-top: 2px; }
 
-  input[type="text"], input[type="date"], select, textarea {
+  input[type="text"], input[type="email"], input[type="date"], select, textarea {
     width: 100%; font: inherit; color: var(--blanco);
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--linea); border-radius: 10px;
@@ -105,7 +105,16 @@
   select { appearance: none; padding-right: 44px; background-image: linear-gradient(45deg, transparent 50%, var(--turquesa) 50%), linear-gradient(135deg, var(--turquesa) 50%, transparent 50%); background-position: right 22px center, right 16px center; background-size: 6px 6px; background-repeat: no-repeat; }
   select option, select optgroup { background: var(--pista); color: var(--blanco); }
   textarea { min-height: 120px; resize: vertical; }
-  input[type="text"]:focus, input[type="date"]:focus, select:focus, textarea:focus { outline: none; border-color: var(--turquesa); box-shadow: 0 0 0 3px rgba(0, 176, 224, 0.25); }
+  p.titulo { margin: 0 0 12px; }
+  .cat-auto {
+    display: flex; align-items: center; min-height: 52px; padding: 12px 16px;
+    border: 1px dashed var(--linea); border-radius: 10px; color: var(--texto-suave);
+  }
+  .cat-auto.lista {
+    border: 1px solid var(--turquesa); background: rgba(0, 176, 224, 0.10); color: var(--blanco);
+    font-family: "Anton", sans-serif; text-transform: uppercase; letter-spacing: -0.01em; font-size: 22px;
+  }
+  input[type="text"]:focus, input[type="email"]:focus, input[type="date"]:focus, select:focus, textarea:focus { outline: none; border-color: var(--turquesa); box-shadow: 0 0 0 3px rgba(0, 176, 224, 0.25); }
 
   .opciones { display: grid; gap: 8px; }
   .opciones.dos { grid-template-columns: 1fr 1fr; }
@@ -136,7 +145,7 @@
 
   .error-msg { display: none; color: var(--error); font-size: 14px; margin-top: 8px; }
   .invalido .error-msg { display: block; }
-  .invalido input[type="text"], .invalido input[type="date"], .invalido select, .invalido .opcion > span { border-color: var(--error); }
+  .invalido input[type="text"], .invalido input[type="email"], .invalido input[type="date"], .invalido select, .invalido .opcion > span { border-color: var(--error); }
 
   button {
     font-family: "Anton", sans-serif; text-transform: uppercase; letter-spacing: -0.01em;
@@ -205,31 +214,28 @@
       <p class="error-msg">Escribe el nombre y apellidos.</p>
     </div>
 
+    <div class="campo" data-campo="email">
+      <label class="titulo" for="email"><span class="num">02</span>Correo electrónico <span class="req">*</span>
+        <span class="ayuda">Te enviaremos aquí la confirmación de la inscripción.</span></label>
+      <input type="email" id="email" name="email" autocomplete="email" inputmode="email" required>
+      <p class="error-msg">Escribe un correo electrónico válido.</p>
+    </div>
+
     <div class="campo" data-campo="fechaNacimiento">
-      <label class="titulo" for="fechaNacimiento"><span class="num">02</span>Fecha de nacimiento <span class="req">*</span></label>
+      <label class="titulo" for="fechaNacimiento"><span class="num">03</span>Fecha de nacimiento <span class="req">*</span></label>
       <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
       <p class="error-msg">Indica una fecha de nacimiento válida.</p>
     </div>
 
     <div class="campo" data-campo="categoriaEdad">
-      <label class="titulo" for="categoriaEdad"><span class="num">03</span>Categoría <span class="req">*</span>
-        <span class="ayuda">La que te corresponde por tu año de nacimiento.</span></label>
-      <select id="categoriaEdad" name="categoriaEdad" required>
-        <option value="" selected disabled>Elige tu categoría</option>
-        <option>Mini (2022 y menores)</option>
-        <option>Prebenjamín (2020-2021)</option>
-        <option>Benjamín (2017-2019)</option>
-        <option>Alevín (2015-2016)</option>
-        <option>Infantil (2013-2014)</option>
-        <option>Juvenil (2011-2012)</option>
-        <option>Junior (2009-2010)</option>
-        <option>Sénior (2008 y mayores)</option>
-      </select>
-      <p class="error-msg">Elige tu categoría.</p>
+      <p class="titulo"><span class="num">04</span>Categoría
+        <span class="ayuda">Se asigna sola según el año de nacimiento.</span></p>
+      <output class="cat-auto" id="categoriaAuto" for="fechaNacimiento" aria-live="polite">Indica primero la fecha de nacimiento</output>
+      <input type="hidden" id="categoriaEdad" name="categoriaEdad">
     </div>
 
     <fieldset data-campo="federado">
-      <legend><span class="num">04</span>Federado/a <span class="req">*</span></legend>
+      <legend><span class="num">05</span>Federado/a <span class="req">*</span></legend>
       <div class="opciones dos">
         <label class="opcion"><input type="radio" name="federado" value="Sí" required><span>Sí</span></label>
         <label class="opcion"><input type="radio" name="federado" value="No"><span>No</span></label>
@@ -238,18 +244,19 @@
     </fieldset>
 
     <fieldset data-campo="ligaAnterior">
-      <legend><span class="num">05</span>¿Has participado en alguna liga en la temporada 2025? <span class="req">*</span></legend>
+      <legend><span class="num">06</span>¿Has participado en alguna liga en la temporada 2025? <span class="req">*</span></legend>
       <div class="opciones">
         <label class="opcion"><input type="radio" name="ligaAnterior" value="No he participado en ninguna" required><span>No he participado en ninguna</span></label>
         <label class="opcion"><input type="radio" name="ligaAnterior" value="Liga Autonómica"><span>Liga Autonómica</span></label>
         <label class="opcion"><input type="radio" name="ligaAnterior" value="Liga 3ª División"><span>Liga 3ª División</span></label>
+        <label class="opcion"><input type="radio" name="ligaAnterior" value="Liga 2ª División"><span>Liga 2ª División</span></label>
         <label class="opcion"><input type="radio" name="ligaAnterior" value="Liga 1ª División"><span>Liga 1ª División</span></label>
       </div>
       <p class="error-msg">Elige una opción.</p>
     </fieldset>
 
     <fieldset data-campo="modalidades">
-      <legend><span class="num">06</span>Modalidad a la que te presentas <span class="req">*</span>
+      <legend><span class="num">07</span>Modalidad a la que te presentas <span class="req">*</span>
         <span class="ayuda">Marca todas las que quieras.</span></legend>
       <div class="opciones modalidades">
         <label class="opcion"><input type="checkbox" name="modalidades" value="Battle"><span>Battle</span></label>
@@ -261,7 +268,7 @@
     </fieldset>
 
     <fieldset data-campo="categoria">
-      <legend><span class="num">07</span>¿Quieres presentarte a la categoría profesional o amateur? <span class="req">*</span></legend>
+      <legend><span class="num">08</span>¿Quieres presentarte a la categoría profesional o amateur? <span class="req">*</span></legend>
       <div class="opciones dos">
         <label class="opcion"><input type="radio" name="categoria" value="Profesional" required><span><span>Profesional<small>Máxima categoría</small></span></span></label>
         <label class="opcion"><input type="radio" name="categoria" value="Amateur"><span><span>Amateur<small>Iniciación</small></span></span></label>
@@ -270,7 +277,7 @@
     </fieldset>
 
     <div class="campo">
-      <label class="titulo" for="observaciones"><span class="num">08</span>Observaciones
+      <label class="titulo" for="observaciones"><span class="num">09</span>Observaciones
         <span class="ayuda">Opcional. Cualquier cosa que debamos saber.</span></label>
       <textarea id="observaciones" name="observaciones" maxlength="1000"></textarea>
     </div>
@@ -287,7 +294,7 @@
 
   <section class="gracias" id="gracias" aria-live="polite">
     <h2>¡Inscripción <span style="color:var(--turquesa)">recibida!</span></h2>
-    <p>Nos vemos en la pista. Este es el resumen de lo que has enviado:</p>
+    <p>Te hemos enviado un correo de confirmación (revisa también la carpeta de spam). Este es el resumen de lo que has enviado:</p>
     <dl class="resumen" id="resumen"></dl>
     <button type="button" id="otra">Inscribir a otro patinador/a</button>
   </section>
@@ -315,12 +322,38 @@
     form.hidden = true;
     document.getElementById("cerrado").hidden = false;
   }
+  // Categoría por año de nacimiento: [año mínimo, año máximo, nombre].
+  const CATEGORIAS = [
+    [2022, 9999, "Mini (2022 y menores)"],
+    [2020, 2021, "Prebenjamín (2020-2021)"],
+    [2017, 2019, "Benjamín (2017-2019)"],
+    [2015, 2016, "Alevín (2015-2016)"],
+    [2013, 2014, "Infantil (2013-2014)"],
+    [2011, 2012, "Juvenil (2011-2012)"],
+    [2009, 2010, "Junior (2009-2010)"],
+    [0, 2008, "Sénior (2008 y mayores)"],
+  ];
+  const fechaInput = document.getElementById("fechaNacimiento");
+  const categoriaAuto = document.getElementById("categoriaAuto");
+  const categoriaInput = document.getElementById("categoriaEdad");
+
+  function actualizarCategoria() {
+    const anio = parseInt(fechaInput.value.slice(0, 4), 10);
+    const cat = anio >= 1900 ? CATEGORIAS.find(([min, max]) => anio >= min && anio <= max) : null;
+    categoriaInput.value = cat ? cat[2] : "";
+    categoriaAuto.textContent = cat ? cat[2] : "Indica primero la fecha de nacimiento";
+    categoriaAuto.classList.toggle("lista", !!cat);
+  }
+  fechaInput.addEventListener("input", actualizarCategoria);
+  fechaInput.addEventListener("change", actualizarCategoria);
+
   document.getElementById("fechaNacimiento").max = new Date().toISOString().slice(0, 10);
 
   function leerDatos() {
     const fd = new FormData(form);
     return {
       nombre: (fd.get("nombre") || "").trim(),
+      email: (fd.get("email") || "").trim(),
       fechaNacimiento: fd.get("fechaNacimiento") || "",
       categoriaEdad: fd.get("categoriaEdad") || "",
       federado: fd.get("federado") || "",
@@ -335,8 +368,8 @@
     const hoy = new Date().toISOString().slice(0, 10);
     const errores = {
       nombre: d.nombre.length < 3,
-      fechaNacimiento: !d.fechaNacimiento || d.fechaNacimiento > hoy || d.fechaNacimiento < "1900-01-01",
-      categoriaEdad: !d.categoriaEdad,
+      fechaNacimiento: !d.fechaNacimiento || d.fechaNacimiento > hoy || d.fechaNacimiento < "1900-01-01" || !d.categoriaEdad,
+      email: !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email),
       federado: !d.federado,
       ligaAnterior: !d.ligaAnterior,
       modalidades: d.modalidades.length === 0,
@@ -370,9 +403,10 @@
     return `${d}/${m}/${a}`;
   }
 
-  function mostrarGracias(d) {
+  function resumenDe(d) {
     const filas = [
       ["Patinador/a", d.nombre],
+      ["Correo", d.email],
       ["Nacimiento", fechaES(d.fechaNacimiento)],
       ["Categoría", d.categoriaEdad],
       ["Federado/a", d.federado],
@@ -381,6 +415,11 @@
       ["Profesional / Amateur", d.categoria],
     ];
     if (d.observaciones) filas.push(["Observaciones", d.observaciones]);
+    return filas;
+  }
+
+  function mostrarGracias(d) {
+    const filas = resumenDe(d);
     resumen.replaceChildren(...filas.map(([k, v]) => {
       const div = document.createElement("div");
       const dt = document.createElement("dt"); dt.textContent = k;
@@ -411,6 +450,7 @@
         // Cada par [columna, valor] acaba en la hoja; las columnas nuevas se crean solas.
         const fila = [
           ["Nombre y apellidos del patinador/a", d.nombre],
+          ["Correo electrónico", d.email],
           ["Fecha de nacimiento", fechaES(d.fechaNacimiento)],
           ["Categoría", d.categoriaEdad],
           ["Federado:", d.federado],
@@ -420,7 +460,13 @@
           ...MODALIDADES.map((m) => [m, d.modalidades.includes(m) ? "Sí" : ""]),
           ["Observaciones", d.observaciones],
         ];
-        const body = new URLSearchParams({ fila: JSON.stringify(fila) });
+        const body = new URLSearchParams({
+          fila: JSON.stringify(fila),
+          // Para los correos de confirmación (al patinador/a y a info@).
+          email: d.email,
+          nombre: d.nombre,
+          resumen: JSON.stringify(resumenDe(d)),
+        });
         // Apps Script no devuelve cabeceras CORS: se envía en modo no-cors.
         await fetch(ENDPOINT, { method: "POST", mode: "no-cors", body });
       }
@@ -436,6 +482,7 @@
 
   document.getElementById("otra").addEventListener("click", () => {
     form.reset();
+    actualizarCategoria();
     gracias.style.display = "none";
     form.style.display = "";
     window.scrollTo({ top: 0, behavior: "smooth" });
