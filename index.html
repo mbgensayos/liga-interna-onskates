@@ -175,6 +175,9 @@
   .resumen dt { color: var(--texto-suave); font-size: 14px; }
   .resumen dd { margin: 0; font-weight: 600; text-align: right; }
 
+  body.enviado header, body.enviado .info, body.enviado footer { display: none; }
+  body.enviado .gracias { padding-top: 40px; }
+  body.enviado .gracias h2 { margin-bottom: 28px; }
   footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--linea); color: var(--texto-suave); font-size: 13px; }
 
   @media (max-width: 420px) {
@@ -294,9 +297,7 @@
 
   <section class="gracias" id="gracias" aria-live="polite">
     <h2>¡Estás inscrito, <span style="color:var(--turquesa)">lo vas a petar!</span> 💪</h2>
-    <p>Te hemos enviado un correo de confirmación (revisa también la carpeta de spam). Este es el resumen de lo que has enviado:</p>
     <dl class="resumen" id="resumen"></dl>
-    <button type="button" id="otra">Inscribir a otro patinador/a</button>
   </section>
 
   <footer>OnSkates · Liga Interna 2026</footer>
@@ -429,7 +430,9 @@
     }));
     form.style.display = "none";
     gracias.style.display = "block";
-    gracias.scrollIntoView({ behavior: "smooth", block: "start" });
+    // Tras enviar solo queda el mensaje y el resumen.
+    document.body.classList.add("enviado");
+    window.scrollTo({ top: 0 });
   }
 
   form.addEventListener("submit", async (e) => {
@@ -480,13 +483,6 @@
     }
   });
 
-  document.getElementById("otra").addEventListener("click", () => {
-    form.reset();
-    actualizarCategoria();
-    gracias.style.display = "none";
-    form.style.display = "";
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
 </script>
 </body>
 </html>
