@@ -4,7 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Inscripción Liga Interna OnSkates 2026</title>
-<meta name="description" content="Formulario de inscripción a la Liga Interna OnSkates 2026: Battle, Derrapes, Speed y Salto.">
+<meta name="description" content="Liga Interna OnSkates · lunes 2 de noviembre de 2026. Inscripción hasta el domingo 25/10: Battle, Derrapes, Speed y Salto.">
+<meta property="og:title" content="Inscripción Liga Interna OnSkates 2026">
+<meta property="og:description" content="Liga: lunes 2 de noviembre. Inscripción hasta el domingo 25/10 · 5 € por SportMember.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -36,9 +38,11 @@
   /* Logo de fondo (sello) */
   .fondo { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
   .fondo img {
-    position: absolute; top: 50%; left: 50%;
-    width: max(1100px, 140vw); opacity: 0.05;
-    transform: translate(-50%, -50%) rotate(-12deg);
+    position: absolute; top: 24px; right: -40px;
+    height: min(92vh, 900px); width: auto; opacity: 0.16;
+  }
+  @media (max-width: 720px) {
+    .fondo img { top: 60px; right: -90px; height: 72vh; opacity: 0.13; }
   }
 
   /* Cabecera */
@@ -55,6 +59,18 @@
     font-size: clamp(44px, 11vw, 88px);
   }
   h1 .acento { color: var(--turquesa); }
+  .fecha-liga {
+    display: flex; align-items: center; gap: 16px; margin-top: 24px;
+    padding: 16px 20px; border-left: 4px solid var(--turquesa);
+    background: rgba(0, 176, 224, 0.10); border-radius: 0 10px 10px 0;
+  }
+  .fecha-num {
+    font-family: "Anton", sans-serif; font-variant-numeric: tabular-nums;
+    font-size: clamp(48px, 13vw, 72px); line-height: 1; letter-spacing: -0.02em;
+  }
+  .fecha-num .sep { color: var(--turquesa); }
+  .fecha-txt { color: var(--texto-suave); font-size: 14px; }
+  .fecha-txt strong { display: block; color: var(--blanco); font-size: 17px; font-weight: 600; }
   .intro { color: var(--texto-suave); margin: 20px 0 0; max-width: 56ch; }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; padding: 0; list-style: none; }
   .chips li {
@@ -158,13 +174,17 @@
 </style>
 </head>
 <body>
-<div class="fondo" aria-hidden="true"><img src="sello.svg" alt=""></div>
+<div class="fondo" aria-hidden="true"><img src="flamenco-sello.png" alt=""></div>
 <div class="wrap">
   <img class="marca" src="logo.svg" alt="OnSkates">
 
   <header>
-    <p class="eyebrow">Temporada 2026 · Inscripción hasta el domingo 25/10</p>
+    <p class="eyebrow">Temporada 2026 · Inscripción</p>
     <h1>Liga Interna <span class="acento">OnSkates</span></h1>
+    <div class="fecha-liga">
+      <span class="fecha-num">02<span class="sep">/</span>11</span>
+      <span class="fecha-txt"><strong>Lunes 2 de noviembre de 2026</strong>Día de la liga</span>
+    </div>
     <p class="intro">Rellena este formulario para inscribirte en la liga interna. Puedes apuntarte a una o varias modalidades en la misma inscripción.</p>
     <ul class="chips" aria-label="Modalidades">
       <li>Battle</li><li>Derrapes</li><li>Speed</li><li>Salto</li>

@@ -3,6 +3,8 @@
 Formulario web de inscripción para la liga interna de OnSkates, con todas las modalidades
 en una sola inscripción: **Battle, Derrapes, Speed y Salto**.
 
+Día de la liga: lunes 2 de noviembre de 2026.
+
 Inscripción: 5 €, que se cobran por la app de SportMember. Habrá entrega de medallas.
 Fecha límite: domingo 25/10/2026. A partir del 26/10 la página muestra "Inscripciones cerradas"
 (se cambia en `CIERRE`, dentro de `index.html`).
